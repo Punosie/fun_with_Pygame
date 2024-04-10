@@ -10,6 +10,7 @@ running = True
 dt = 0
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+player_radius = 40
 
 while running:
     for event in pygame.event.get():
@@ -18,7 +19,7 @@ while running:
 
     screen.fill('Black')
 
-    pygame.draw.circle(screen, 'pink', player_pos, 40)
+    pygame.draw.circle(screen, 'pink', player_pos, player_radius)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -29,6 +30,19 @@ while running:
         player_pos.x -= 300 * dt
     if keys[pygame.K_d]:
         player_pos.x += 300 * dt
+
+
+#Boundary
+    
+    if player_pos.x - player_radius < 0:
+        player_pos.x = player_radius
+    elif player_pos.x + player_radius > screen_width:
+        player_pos.x = screen_width - player_radius
+
+    if player_pos.y - player_radius < 0:
+        player_pos.y = player_radius
+    elif player_pos.y + player_radius > screen_height:
+        player_pos.y = screen_height - player_radius
 
     pygame.display.flip()
 
